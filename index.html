@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="La Estrella un territorio para jugar — Brújula 2026">
+  <meta name="theme-color" content="#152D49">
+  <!-- Seguridad -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Referrer-Policy" content="no-referrer">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <title>La Estrella · Un territorio para jugar</title>
+  <link rel="icon" href="assets/img/favicon.webp" type="image/webp">
+  <!-- Preload recursos críticos -->
+  <link rel="preload" href="assets/img/mapa.webp" as="image">
+  <link rel="preload" href="assets/img/logo-estrella-jugar.webp" as="image">
+  <link rel="preload" href="css/style.css" as="style">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PANTALLA 1: TÍTULO                         -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-titulo" class="screen">
+    <div class="titulo-content">
+
+      <img src="assets/img/logo-estrella-jugar.webp"
+           alt="La Estrella un territorio para jugar"
+           class="titulo-logo-jugar">
+
+      <div id="dado-deco" class="dado-deco"></div>
+
+      <div class="titulo-personajes">
+        <img src="assets/img/ardilla.webp"   alt="La Ardilla"   class="titulo-personaje">
+        <img src="assets/img/flor.webp"      alt="La Flor"      class="titulo-personaje">
+        <img src="assets/img/corona.webp"    alt="La Corona"    class="titulo-personaje">
+        <img src="assets/img/guacamaya.webp" alt="La Guacamaya" class="titulo-personaje">
+      </div>
+
+      <button id="btn-jugar" class="btn-primary">¡Jugar!</button>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PANTALLA 2: CONFIGURACIÓN                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-config" class="screen">
+    <div class="config-card">
+      <h2>¿Quiénes van a jugar?</h2>
+
+      <div class="config-seccion">
+        <label>Número de jugadores</label>
+        <div class="num-btns">
+          <button class="num-btn selected" data-num="1">1</button>
+          <button class="num-btn" data-num="2">2</button>
+          <button class="num-btn" data-num="3">3</button>
+          <button class="num-btn" data-num="4">4</button>
+        </div>
+      </div>
+
+      <div class="config-seccion">
+        <label>Nombre y personaje de cada jugador</label>
+        <div id="config-nombres"></div>
+      </div>
+
+      <button id="btn-comenzar" class="btn-primary" style="width:100%;margin-top:4px;">
+        ¡Comenzar aventura!
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PANTALLA 3: TABLERO                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-tablero" class="screen">
+
+    <aside class="panel-lateral">
+      <div class="panel-logo">
+        <img src="assets/img/logo-estrella-jugar.webp" alt="La Estrella" class="panel-logo-img">
+      </div>
+
+      <div id="turno-actual">Turno de: —</div>
+      <div id="panel-jugadores"></div>
+
+      <div class="dado-section">
+        <div id="dado-display"></div>
+        <button id="btn-dado" class="btn-dado">Lanzar dado</button>
+        <button id="btn-reiniciar" class="btn-secondary">↺ Reiniciar</button>
+      </div>
+    </aside>
+
+    <div class="mapa-area">
+      <img src="assets/img/mapa.webp" alt="Mapa de La Estrella" class="mapa-bg">
+      <div id="mapa-container"></div>
+
+      <div class="leyenda">
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#FF6471"></div>Quiz</div>
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#A7D2E3"></div>Dato</div>
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#FEAA3D"></div>Minijuego</div>
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#FDD14C"></div>Suerte</div>
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#152D49"></div>Desvío</div>
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#D7E8BE"></div>Colaboración</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- OVERLAY EVENTOS                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-overlay">
+    <div id="overlay-content"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PANTALLA 4: FIN                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="screen-fin" class="screen">
+    <img src="assets/img/logo-estrella-jugar.webp" alt="La Estrella" class="fin-logo">
+    <div class="fin-estrella">⭐</div>
+    <div id="fin-titulo">¡Resultado de la partida!</div>
+    <div id="fin-tabla"></div>
+    <button id="btn-nuevo-juego" class="btn-primary">¡Jugar de nuevo!</button>
+  </div>
+
+  <div id="mensaje-flotante"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FOOTER GLOBAL — todas las pantallas        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <footer id="footer-logos">
+    <img src="assets/img/logo-brujula.webp"  alt="Brújula 2026" class="footer-logo">
+    <div class="footer-sep"></div>
+    <img src="assets/img/logo-alcaldia.webp" alt="Alcaldía de La Estrella" class="footer-logo">
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/minigames.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

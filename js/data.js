@@ -11,7 +11,7 @@ const PUNTOS_INTERES = [
 { nombre: 'Ancón', x: 57, y: 54 },
 { nombre: 'Sierra Morena', x: 64, y: 64 },
 { nombre: 'Tablacita', x: 76, y: 64 },
-{ nombre: 'San Isidro 2', x: 70, y: 77 },
+{ nombre: 'San Isidro', x: 70, y: 77 },
 { nombre: 'Parque Principal', x: 44, y: 41 },
 ];
 const PERSONAJES = [
